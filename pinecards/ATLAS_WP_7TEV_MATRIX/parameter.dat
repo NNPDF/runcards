@@ -1,0 +1,126 @@
+##########################
+# MATRIX input parameter #
+##########################
+
+#----------------------\
+# General run settings |
+#----------------------/
+process_class    =  pp-epve+X  #  process id
+E                =  3500.0     #  energy per beam
+coll_choice      =  1          #  (1) PP collider; (2) PPbar collider
+switch_PineAPPL  =  1          #
+use_TSV          =  1          #  switch to use new TSV scale variation instead of CV (1) or in addition to CV (2)
+extrapolate_binwise = 1        #  switch for bin-wise r_cut extrapolation of distributions
+photon_induced   =  1          #  switch to turn on (1) and off (0) photon-induced contributions
+enhance_tails    =  0          #  switch to improve statistics in tail of distributions (a factor of two slower)
+approx_ckm_EW    =  1          #  trivial CKM for (1) 1-loop EW correction or (2) whole NLO EW correction
+
+
+#----------------\
+# Scale settings |
+#----------------/
+scale_ren         =  80.352    #  renormalization (muR) scale
+scale_fact        =  80.352    #  factorization (muF) scale
+dynamic_scale     =  0         #  dynamic ren./fac. scale
+                               #  0: fixed scale above
+                               #  1: invariant mass (Q) of system (of the colourless final states)
+                               #  2: transverse mass (mT^2=Q^2+pT^2) of system (of the colourless final states)
+factor_central_scale = 1       #  relative factor for central scale (important for dynamic scales)
+scale_variation   =  1         #  switch for muR/muF uncertainties (0) off; (1) 7-point (default); (2) 9-point variation
+variation_factor  =  2         #  symmetric variation factor; usually a factor of 2 up and down (default)
+
+
+#------------------------------\
+# Order-dependent run settings |
+#------------------------------/
+# LO-run
+run_LO             =  1        #  switch for LO cross section (1) on; (0) off
+LHAPDF_LO          =  NNPDF31_nnlo_as_0118_luxqed  #  LO LHAPDF set
+PDFsubset_LO       =  0        #  member of LO PDF set
+precision_LO       =  1.e-2    #  precision of LO cross section
+
+# NLO-run
+run_NLO_QCD        =  0        #  switch for NLO QCD cross section (1) on; (0) off
+run_NLO_EW         =  0        #  switch for NLO EW cross section (1) on; (0) off
+LHAPDF_NLO         =  NNPDF31_nnlo_as_0118_luxqed  #  NLO LHAPDF set
+PDFsubset_NLO      =  0        #  member of NLO PDF set
+precision_NLO_QCD  =  1.e-2    #  precision of NLO QCD cross section
+precision_NLO_EW   =  1.e-2    #  precision of NLO EW correction
+NLO_subtraction_method = 1     #  switch to use (2) qT subtraction (1) Catani-Seymour at NLO
+
+# NNLO-run
+run_NNLO_QCD       =  0        #  switch for NNLO QCD cross section (1) on; (0) off
+add_NLO_EW         =  0        #  switch to add NLO EW cross section to NNLO run (1) on; (0) off
+                               #  note: can be added only if also running NNLO
+LHAPDF_NNLO        =  NNPDF31_nnlo_as_0118_luxqed  #  NNLO LHAPDF set
+PDFsubset_NNLO     =  0        #  member of NNLO PDF set
+precision_NNLO_QCD =  1.e-2    #  precision of NNLO QCD cross section
+precision_added_EW =  1.e-2    #  precision of NLO EW correction in NNLO run
+power_corrections  =  0        #  switch to include leading power corrections in qT-subtraction through recoil
+                               #  (incomplete for processes involving photons and heavy quarks)
+                               #  (note: increases written output for distributions by factor of 8)
+                               #  (TSV variation that has more flexibility and features, and will become the new
+                               #   standard in future releases; the final result output differs slightly from CV,
+                               #   but contains at the moment the identical information, unless obove switch
+                               #   power_corrections or extrapolate_binwise is turned on, then TSV variation will
+                               #   be used regardless of setting use_TSV and those features included in the results)
+
+
+#----------------------------\
+# Settings for fiducial cuts |
+#----------------------------/
+# Jet algorithm
+jet_algorithm = 3              #  (1) Cambridge-Aachen (2) kT (3) anti-kT
+jet_R_definition = 0           #  (0) pseudo-rapidity (1) rapidity
+jet_R = 0.4                    #  DeltaR
+
+# Photon recombination (lepton dressing)
+photon_recombination = 1       #  switch for photon recombination (1) on; (0) off; must be on for EW runs
+photon_R_definition = 0        #  (0) pseudorap; (1) rapidity
+photon_R = 0.1                 #  DeltaR: photon combined with charged particle when inside this radius
+
+# Jet cuts
+define_pT jet = 25.            #  requirement on jet transverse momentum (lower cut)
+define_eta jet = 4.5           #  requirement on jet pseudo-rapidity (upper cut)
+define_y jet = 1.e99           #  requirement on jet rapidity (upper cut)
+n_observed_min jet = 0         #  minimal number of observed jets (with cuts above)
+n_observed_max jet = 99        #  maximal number of observed jets (with cuts above)
+
+# Lepton cuts
+define_pT lep = 25.0           #  requirement on lepton transverse momentum (lower cut)
+define_eta lep = 2.5           #  requirement on lepton pseudo-rapidity (upper cut)
+define_y lep = 1.e99           #  requirement on lepton rapidity (upper cut)
+n_observed_min lep = 1         #  minimal number of observed leptons (with cuts above)
+n_observed_max lep = 99        #  maximal number of observed leptons (with cuts above)
+
+# Neutrino cuts
+define_pT missing = 25.0       #  requirement on transverse momentum of sum of all neutrinos (lower cut)
+
+####################
+# User-defined cuts
+# (only used if defined in 'MATRIX/prc/$process/user/specify.cuts.cxx')
+#
+user_switch MT_W = 1     #  switch for transverse mass cut on W-boson defined as sqrt(2*pT_l*pT_nu*deltaPhi(l,nu))
+user_cut min_MT_W = 40.  #  (lower cut)
+
+####################
+# Fiducial cuts
+# (defined via general interface)
+#
+
+#-----------------\
+# MATRIX behavior |
+#-----------------/
+max_time_per_job = 12          #  very rough time(hours) one main run job shall take (default: 24h)
+                               #  unreliable when < 1h, use as tuning parameter for degree of parallelization
+                               #  note: becomes ineffective when job number > max_nr_parallel_jobs
+                               #        which is set in MATRIX_configuration file
+switch_distribution = 1        #  switch to turn on (1) and off (0) distributions
+save_previous_result = 1       #  switch to save previous result of this run (in result/"run"/saved_result_$i)
+save_previous_log = 0          #  switch to save previous log of this run (in log/"run"/saved_result_$i)
+#include_pre_in_results = 0     #  switch to (0) only include main run in results; (1) also all extrapolation (pre) runs;
+                               #  crucial to set to 0 if re-running main with different inputs (apart from precision)
+                               #  note: if missing (default) pre runs used if important for precision
+                               #  (separately for each contribution)
+reduce_workload = 0            #  switch to keep full job output (0), reduce (1) or minimize (2) workload on slow clusters
+random_seed = 0                #  specify integer value (grid-/pre-run reproducible)

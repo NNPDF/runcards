@@ -1,0 +1,5 @@
+distributionname  =  etal
+distributiontype  =  abseta
+particle 1        =  lep 1
+binningtype       =  irregular
+edges             =  0.0:0.21:0.42:0.63:0.84:1.05:1.37:1.52:1.74:1.95:2.18:2.5
