@@ -1,0 +1,7 @@
+arxiv=1703.01630
+description=CMS two-dimensional differential ttbar cross section at 8 TeV integrated over the fiducial phase space
+hepdata=10.17182/hepdata.77008.v1/t4
+nnpdf_id=CMS_TTBAR_2D_DIFF_MTT_TRAP_NORM_TOT
+y_label=sig
+y_label_tex=$\sigma$
+y_unit=pb

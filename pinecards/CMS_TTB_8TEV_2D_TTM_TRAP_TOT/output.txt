@@ -1,0 +1,7 @@
+import model loop_qcd_qed_sm_Gmu
+set complex_mass_scheme True
+define p = p b b~
+define j = p
+generate p p > t t~ QCD^2<=4 QED^2<=2 [QCD]
+output @OUTPUT@
+quit
