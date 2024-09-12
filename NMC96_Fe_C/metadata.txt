@@ -1,0 +1,15 @@
+arxiv=
+description=NMC F2 structure function, nuclear data
+hepdata=10.17182/hepdata.32750.v1
+data_url=
+nnpdf_id=NMC96FeC
+fktable_id=NMC96FeC
+x1_label=Q2
+x1_label_tex=$Q^2$
+x1_unit=GeV^2
+x2_label=x
+x2_label_tex=$x$
+x2_unit=
+y_label=F2p
+y_label_tex=$F_{2,\mathrm{tot}}^{(\mathrm{d})}$
+y_unit=

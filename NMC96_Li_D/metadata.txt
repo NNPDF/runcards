@@ -1,0 +1,15 @@
+arxiv=
+description=
+hepdata=10.17182/hepdata.32750.v1
+data_url=
+nnpdf_id=nmc_li_d
+fktable_id=nmc_li_d
+x1_label=Q2
+x1_label_tex=$Q^2$
+x1_unit=GeV^2
+x2_label=x
+x2_label_tex=$x$
+x2_unit=
+y_label=
+y_label_tex=
+y_unit=

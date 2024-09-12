@@ -1,0 +1,15 @@
+arxiv=
+description=BCDMS NC nuclear data
+hepdata=
+data_url=
+nnpdf_id=BCDMS85ND
+fktable_id=BCDMS85ND
+x1_label=Q2
+x1_label_tex=$Q^2$
+x1_unit=GeV^2
+x2_label=x
+x2_label_tex=$x$
+x2_unit=
+y_label=F2p
+y_label_tex=$F_{2,\mathrm{tot}}^{(\mathrm{p})}$
+y_unit=
