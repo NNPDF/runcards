@@ -1,0 +1,52 @@
+--- NLO/SubProcesses/setscales.f	2020-05-21 17:23:55.126143088 +0200
++++ NLO/SubProcesses/setscales.f.new	2020-05-21 17:27:26.262700419 +0200
+@@ -527,6 +527,18 @@
+       integer i,j
+       character*80 temp_scale_id
+       common/ctemp_scale_id/temp_scale_id
++      integer iPDG_reco(nexternal)
++      double precision ppl(0:3), pplb(0:3), ppv(0:3)
++      logical is_nextph_iso(nexternal),is_nextph_iso_reco(nexternal)
++      double precision p_reco(0:4,nexternal), p_in(0:4,nexternal)
++c     les houches accord stuff to identify particles
++c
++      integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc),
++     &        icolup(2,nexternal,maxflow),niprocs
++      common /c_leshouche_inc/idup,mothup,icolup,niprocs
++c Masses of external particles
++      double precision pmass(nexternal)
++      common/to_mass/pmass
+ c
+       tmp=0
+       if(ickkw.eq.-1)then
+@@ -568,10 +579,26 @@
+ cc                 dynamical_scale_choice = 10                                   cc
+ cc      in the run_card (run_card.dat)                                           cc
+ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+-         write(*,*) "User-defined scale not set"
+-         stop 1
+-         temp_scale_id='User-defined dynamical scale' ! use a meaningful string
+-         tmp = 0d0
++         temp_scale_id='FOOBAR' ! use a meaningful string
++         tmp = -1d0
++         do i=1,nexternal
++           p_in(0:3,i) = pp(0:3,i)
++           p_in(4,i) = pmass(i)
++         enddo
++         is_nextph_iso(:) = .false.
++         call recombine_momenta(rphreco, etaphreco, lepphreco, quarkphreco,
++     $                          p_in, idup(1,1), is_nextph_iso, p_reco,
++     $                          iPDG_reco, is_nextph_iso_reco)
++
++         do j = nincoming+1, nexternal
++           if (iPDG_reco(j).eq.13) ppl(0:3)=p_reco(0:3,j)
++           if (iPDG_reco(j).eq.-13) pplb(0:3)=p_reco(0:3,j)
++         enddo
++         do i=0,3
++           ppv(i)=ppl(i)+pplb(i)
++         enddo
++
++         tmp=sqrt(ppv(0)**2-ppv(1)**2-ppv(2)**2-ppv(3)**2)
+ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+ cc      USER-DEFINED SCALE: END OF USER CODE                                     cc
+ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc

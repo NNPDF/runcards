@@ -1,0 +1,9 @@
+arxiv=
+description=
+hepdata=
+x1_label=costh
+x1_label_tex=$\cos \theta^*$
+x1_unit=
+y_label=dsig/dcosth
+y_label_tex=$\frac{\mathrm{d}\sigma}{\mathrm{d}\cos \theta^*}$
+y_unit=pb

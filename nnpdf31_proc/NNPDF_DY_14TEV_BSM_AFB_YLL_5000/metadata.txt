@@ -1,0 +1,9 @@
+arxiv=
+description=
+hepdata=
+x1_label=yll
+x1_label_tex=$|y_{\ell\bar{\ell}}|$
+x1_unit=
+y_label=dsig/dyll
+y_label_tex=$\frac{\mathrm{d}\sigma}{\mathrm{d}|y_{\ell\bar{\ell}}|}$
+y_unit=pb
