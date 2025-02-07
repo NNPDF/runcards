@@ -1,0 +1,28 @@
+#######################################################
+# MATRIX double differential distributions definition #
+#######################################################
+#
+# In this file you can customize the distributions created during the run (examples below)
+#
+# They are simply defined as a combination of two single differential distributions that
+# must be defined in the file 'distribution.dat'
+#
+#----------------------\
+# define distributions |
+#----------------------/
+
+
+#pT distribution of the ttx system in rapidity bins. Binning defined in 'distribution.dat'
+
+dddistributionname = pTt-yt
+distributionname_1 = cms_2l_yt
+distributionname_2 = cms_2l_pTt
+
+dddistributionname = mttbar-yt
+distributionname_1 = cms_2l_mttbar
+distributionname_2 = cms_2l_yt
+
+dddistributionname = mttbar-yttbar
+distributionname_1 = cms_2l_mttbar
+distributionname_2 = cms_2l_yttbar
+

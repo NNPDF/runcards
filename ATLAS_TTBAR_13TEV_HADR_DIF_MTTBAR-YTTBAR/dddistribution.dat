@@ -1,0 +1,25 @@
+#######################################################
+# MATRIX double differential distributions definition #
+#######################################################
+#
+# In this file you can customize the distributions created during the run (examples below)
+#
+# They are simply defined as a combination of two single differential distributions that
+# must be defined in the file 'distribution.dat'
+#
+#----------------------\
+# define distributions |
+#----------------------/
+
+dddistributionname      =       dd1
+distributionname_1      =       m1_ttx
+distributionname_2      =       ym1_ttx
+
+dddistributionname      =       dd2
+distributionname_1      =       m2_ttx
+distributionname_2      =       ym2_ttx
+
+dddistributionname      =       dd3
+distributionname_1      =       m3_ttx
+distributionname_2      =       ym3_ttx
+

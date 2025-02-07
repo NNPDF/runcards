@@ -1,0 +1,61 @@
+##########################
+# MATRIX model parameter #
+##########################
+
+#--------\
+# masses |
+#--------/
+Block MASS
+  1 0.000000     # M_d 
+  2 0.000000     # M_u
+  3 0.000000     # M_s
+  4 0.000000     # M_c
+  5 0.000000     # M_b 
+  6 170.0 # M_t
+ 11 0.000000     # M_e 
+ 12 0.000000     # M_ve
+ 13 0.000000     # M_mu
+ 14 0.000000     # M_vm
+ 15 1.777000e+00 # M_tau
+ 16 0.000000     # M_vt
+ 23 9.118760e+01 # M_Z 
+ 24 8.038500e+01 # M_W
+ 25 1.250000e+02 # M_H 
+
+#-------------------\
+# inputs for the SM |
+#-------------------/
+Block SMINPUTS
+  1 1.280000e+02 # 1/alpha_e(MZ)
+  2 1.166390e-05 # G_F 
+111 1.370360e+02 # 1/alpha_e(mu->0)
+
+#------------------\
+# Yukawa couplings |
+#------------------/
+#Block YUKAWA 
+#  5 4.750000e+00 # M_YB 
+#  6 1.730000e+02 # M_YT 
+# 15 1.777000e+00 # M_YTAU 
+
+#---------------\
+# decays widths |
+#---------------/
+DECAY  6 0.000000     # WT 
+DECAY 23 0.000000     # WZ 
+DECAY 24 0.000000     # WW 
+DECAY 25 4.070000e-03 # WH
+
+#-----------\
+# EW inputs |
+#-----------/
+Block EWINPUTS
+  1 1  # ew_scheme - determines scheme used for EW inputs
+       # 0: alpha_e_0 scheme (alpha_e(mu->0) above used to determine inputs)
+       # 1: G_mu scheme (G_F above used to determine inputs)
+       # 2: alpha_e_MZ scheme (alpha_e(MZ) above used to determine inputs)
+  3 1  # use_cms - switch for the complex mass scheme
+       # 0: off
+       # 1: on
+       # 2: on, but alpha_e is determined through real parameters
+

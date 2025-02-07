@@ -1,0 +1,18 @@
+#######################################################
+# MATRIX double differential distributions definition #
+#######################################################
+#
+# In this file you can customize the distributions created during the run (examples below)
+#
+# They are simply defined as a combination of two single differential distributions that
+# must be defined in the file 'distribution.dat'
+#
+#----------------------\
+# define distributions |
+#----------------------/
+
+
+dddistributionname      =       cms_lj_mttbar-yttbar
+distributionname_1      =       cms_lj_2d_mttbar
+distributionname_2      =       cms_lj_2d_yttbar
+

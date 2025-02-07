@@ -1,0 +1,14 @@
+#######################################################
+# MATRIX double differential distributions definition #
+#######################################################
+#
+# In this file you can customize the distributions created during the run (examples below)
+#
+# They are simply defined as a combination of two single differential distributions that
+# must be defined in the file 'distribution.dat'
+#
+#----------------------\
+# define distributions |
+#----------------------/
+
+

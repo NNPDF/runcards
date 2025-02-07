@@ -1,0 +1,163 @@
+##################################
+# MATRIX distribution definition #
+##################################
+#
+# In this file you can customize the distributions created during the run (examples below)
+# please read the INSTRUCTIONS at the END OF THIS FILE...
+#
+#------\
+# Info |
+#------/
+# Total rates and jet multiplicities (possibly within cuts) will automatically be included
+# Add/remove arbitrary distribution-blocks, but always add/remove a full block.
+#
+#----------------------\
+# define distributions |
+#----------------------/
+
+distributionname = m_ttx
+distributiontype = m
+particle 1 = top 1
+particle 1 = atop 1
+binningtype = irregular
+edges = 325.0:458.75:565.75:646.0:753.0:860.0:967.0:1100.75:1261.25:3000.0
+
+distributionname = y_ttx
+distributiontype = absy
+particle 1 = top 1
+particle 1 = atop 1
+binningtype = irregular
+edges = 0.0:0.12:0.24:0.36:0.49:0.62:0.76:0.91:1.06:1.21:1.39:1.59:2.4
+
+distributionname = dd_m_ttx
+distributiontype = m
+particle 1 = top 1
+particle 1 = atop 1
+binningtype = irregular
+edges = 0.0:700.0:970.0:3000.0
+
+distributionname = dd_y_ttx
+distributiontype = absy
+particle 1 = top 1
+particle 1 = atop 1
+binningtype = irregular
+edges = 0.0:0.46:0.91:1.55:2.5
+
+#--------\
+# Syntax |
+#--------/
+# "distributionname"
+# starts new distribution-block; user-defined, unique label for identification at end of run
+#
+#
+# "distributiontype"
+# specifies observable to be binned (some require more than one particle)
+#
+# pre-defined types: (custom definitions not yet supported)
+# pT           -- transverse momentum of "particle 1"
+#                 (scalar sum of pTs if more than one "particle" given)
+# m            -- invariant mass of "particle 1"
+# dm           -- invariant-mass difference between "particle 1" and "particle 2"
+# absdm        -- absolute invariant-mass difference between "particle 1" and "particle 2"
+# mmin         -- minimal invariant mass of "particle 1" and "particle 2"
+# mmax         -- maximal invariant mass of "particle 1" and "particle 2"
+# y            -- rapidy of "particle 1"
+# absy         -- absolute rapidy of "particle 1"
+# dy           -- rapidy difference between "particle 1" and "particle 2"
+# absdy        -- absolute rapidy difference between "particle 1" and "particle 2"
+# dabsy        -- difference between absolute rapidities of"particle 1" and "particle 2"
+# absdabsy     -- absolute difference between absolute rapidities of "particle 1"
+#                 and "particle 2"
+# eta          -- pseudo-rapidy of "particle 1"
+# abseta       -- absolute pseudo-rapidy of "particle 1"
+# deta         -- pseudo-rapidy difference between "particle 1" and "particle 2"
+# absdeta      -- absolute pseud-rapidy difference between "particle 1" and "particle 2"
+# dabseta      -- difference between absolute pseudo-rapidities of"particle 1"
+#                 and "particle 2"
+# absdabseta   -- absolute difference between absolute pseudo-rapidities of "particle 1"
+#                 and "particle 2"
+# phi          -- transverse-angle (phi) of "particle 1", or phi difference between 
+#                 "particle 1" and "particle 2" if two particles are given
+# dR           -- distance (in y-phi-plane) between "particle 1" and "particle 2"
+# dReta        -- distance (in eta-phi-plane) between "particle 1" and "particle 2"
+# ET           -- transverse mass sqrt(m^2+pT^2) of "particle 1"
+#                 (scalar sum of ETs if more than one "particle" given)
+# mT           -- transverse mass: ET of "particle 1", if only one particle given
+#                 experimental definition with missing energy, if more than one particle 
+#                 given; all neutrinos (missing energie) go into "particle 1" all other 
+#                 particles in "particle 2,3,4,..."
+# 
+# special distribution types:
+# muR          -- Distribution of scale muR set in computation (no "particle" definition)
+# muF          -- Distribution of scale muF set in computation (no "particle" definition)
+# pTveto       -- Cumulative cross section sigma(pT<pTveto) as a function of pTveto, 
+#                 where pT is the transverse momentum of "particle 1"
+# multiplicity -- Distribution in the number of "particle 1"
+#
+# "particle 1", "particles 2"
+# define particles for selected distribution; the value must be: "$particle $number", 
+# where the $number denotes its ordering in pT (!!! never forget the $number!!!)
+#
+# $particle:
+# photon -- photon (photon isolation in parameter.dat)
+# lep    -- lepton
+# lm     -- negatively charged lepton
+# lp     -- positively charged lepton
+# e      -- electron and positron
+# em     -- electron
+# ep     -- positron
+# mu     -- muons (muon and anti-muon)
+# tau    -- taus (tau and anti-tau)
+# mum    -- muon
+# mup    -- anti-muon
+# taum   -- tau
+# taup   -- anti-tau
+# ljet   -- light jet (without b's, jet definition in parameter.dat)
+# jet    -- normal jet (including b's, jet definition in parameter.dat)
+# bjet   -- bottom jet (only b's, jet definition in parameter.dat)
+# tjet   -- top quarks (top and anti-top)
+# top    -- top quark
+# atop   -- anti-top quark
+# wm     -- W^- boson
+# wp     -- W^+ boson
+# z      -- Z boson
+# h      -- Higgs boson
+# nua    -- neutrinos (neutrino and anti-neutrino)
+# nu     -- neutrino
+# nux    -- anti-neutrino
+# nea    -- electron-neutrinos (electron-neutrino and anti-electron-neutrino)
+# ne     -- electron-neutrino
+# nex    -- anti-electron-neutrino
+# nma    -- muon-neutrinos (muon-neutrino and anti-muon-neutrino)
+# nm     -- muon-neutrino
+# nmx    -- anti-muon-neutrino
+# nma    -- tau-neutrinos (tau-neutrino and anti-tau-neutrino)
+# nm     -- tau-neutrino
+# nmx    -- anti-tau-neutrino
+# 
+# $number:
+# 1 -- hardest
+# 2 -- second-hardest
+# ...
+#
+# setting several values for same particle you add their 4-momenta 
+# before computing observable ("distributiontype"), eg:"
+# "
+# distributiontype  =  pT
+# particle 1        =  lep 1
+# particle 1        =  lep 2
+# "
+# computes transverse momentum of sum of the 4-momenta of hardest and second-hardest lepton
+# 
+#
+# binning (regular):
+# "startpoint", "endpoint" define the range of the distribution
+# specify "binwidth" OR "binnumber" to define equidistant bins
+#
+# if "binningtype = irregular" you can choose non-equidistant bins by definining edges of the bins:
+# "
+# edges = binedge1:binedge2:binedge3:...
+# "
+# where binedge1,2,3,... should be floats (eg, 0.:15.5:33.333:100.)
+#
+

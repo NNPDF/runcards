@@ -1,0 +1,111 @@
+##########################
+# MATRIX input parameter #
+##########################
+
+#----------------------\
+# General run settings |
+#----------------------/
+process_class    =  pp-tt~+X   #  process id
+E                =  3500.      #  energy per beam
+coll_choice      =  1          #  (1) PP collider; (2) PPbar collider
+switch_PineAPPL  =  1          #  switch to turn on (1) or off(0) the generation of PineAppl grids
+use_TSV          =  1          #  switch to use new TSV scale variation instead of CV (1) or in addition to CV (2)
+                               #  (TSV variation that has more flexibility and features, and will become the new
+                               #   standard in future releases; the final result output differs slightly from CV,
+                               #   but contains at the moment the identical information, unless obove switch
+                               #   power_corrections or extrapolate_binwise is turned on, then TSV variation will
+                               #   be used regardless of setting use_TSV and those features included in the results)
+extrapolate_binwise = 1        #  switch for bin-wise r_cut extrapolation of distributions
+                               #  (note: increases written output for distributions by factor of 8)
+enhance_tails    =  0          #  switch to improve statistics in tail of distributions (a factor of two slower)
+
+
+#----------------\
+# Scale settings |
+#----------------/
+dynamic_scale     =  11         #  dynamic ren./fac. scale
+                               #  0: fixed scale above
+                               #  1: invariant mass (Q) of system (of the colourless final states)
+                               #  2: transverse mass (mT^2=Q^2+pT^2) of system (of the colourless final states)
+factor_central_scale = 1       #  relative factor for central scale (important for dynamic scales)
+scale_variation   =  2         #  switch for muR/muF uncertainties (0) off; (1) 7-point (default); (2) 9-point variation
+variation_factor  =  2         #  symmetric variation factor; usually a factor of 2 up and down (default)
+
+
+#------------------------------\
+# Order-dependent run settings |
+#------------------------------/
+# LO-run
+run_LO             =  0        #  switch for LO cross section (1) on; (0) off
+LHAPDF_LO          =  NNPDF30_lo_as_0118  #  LO LHAPDF set
+PDFsubset_LO       =  0        #  member of LO PDF set
+precision_LO       =  1.e-2    #  precision of LO cross section
+
+# NLO-run
+run_NLO_QCD        =  0        #  switch for NLO QCD cross section (1) on; (0) off
+LHAPDF_NLO         =  NNPDF30_nlo_as_0118  #  NLO LHAPDF set
+PDFsubset_NLO      =  0        #  member of NLO PDF set
+precision_NLO_QCD  =  1.e-2    #  precision of NLO QCD cross section
+NLO_subtraction_method = 1     #  switch to use (2) qT subtraction (1) Catani-Seymour at NLO
+
+# NNLO-run
+run_NNLO_QCD       =  1        #  switch for NNLO QCD cross section (1) on; (0) off
+LHAPDF_NNLO        =  NNPDF40_nnlo_as_01180  #  NNLO LHAPDF set
+PDFsubset_NNLO     =  0        #  member of NNLO PDF set
+precision_NNLO_QCD =  1.e-3    #  precision of NNLO QCD cross section
+switch_qT_accuracy =  0        #  switch to improve qT-subtraction accuracy (slower numerical convergence)
+                               #  0: lowest value of r_cut = 0.0015 varied up to 0.01 (default)
+                               #  1: lowest value of r_cut = 0.0005 varied up to 0.01
+                               #  2: lowest value of r_cut = 0.0001 varied up to 0.01 (only if extrapolate_binwise=1;
+                               #     output of fixed-r_cut result remains 0.0005, while 0.0001 used for extrapolation)
+                               #     for Drell-Yann it is recommended to turn on power_corrections rather than use switch_qT_accuracy
+power_corrections  =  0        #  switch to include leading power corrections in qT-subtraction through recoil
+                               #  (not recommended for processes involving photons and heavy quarks)
+power_corrections_pT0 = 25.    #  characteristic transverse momentum pT0 used to optimise the generation
+                               #  of the phase space for the integration of the power corrections. It should be set
+                               #  to the minimum requirement on the transverse momentum of the 2-body final state
+                               #  (for Drell-Yan for instance this should be the minimum transverse momentum of the leptons)
+
+
+#----------------------------\
+# Settings for fiducial cuts |
+#----------------------------/
+# Jet algorithm
+jet_algorithm = 3              #  (1) Cambridge-Aachen (2) kT (3) anti-kT
+jet_R_definition = 0           #  (0) pseudo-rapidity (1) rapidity
+jet_R = 0.4                    #  DeltaR
+
+# Jet cuts
+define_pT jet = 25.            #  requirement on jet transverse momentum (lower cut)
+define_eta jet = 4.5           #  requirement on jet pseudo-rapidity (upper cut)
+define_y jet = 1.e99           #  requirement on jet rapidity (upper cut)
+n_observed_min jet = 0         #  minimal number of observed jets (with cuts above)
+n_observed_max jet = 99        #  maximal number of observed jets (with cuts above)
+
+####################
+# User-defined cuts
+# (only used if defined in 'MATRIX/prc/$process/user/specify.cuts.cxx')
+#
+# no user-defined cuts implemented at the moment for this process
+####################
+# Fiducial cuts
+# (defined via general interface)
+#
+
+#-----------------\
+# MATRIX behavior |
+#-----------------/
+max_time_per_job = 12          #  very rough time(hours) one main run job shall take (default: 24h)
+                               #  unreliable when < 1h, use as tuning parameter for degree of parallelization
+                               #  note: becomes ineffective when job number > max_nr_parallel_jobs
+                               #        which is set in MATRIX_configuration file
+switch_distribution = 1        #  switch to turn on (1) and off (0) distributions
+save_previous_result = 1       #  switch to save previous result of this run (in result/"run"/saved_result_$i)
+save_previous_log = 0          #  switch to save previous log of this run (in log/"run"/saved_result_$i)
+include_pre_in_results = 0     #  switch to (0) only include main run in results; (1) also all extrapolation (pre) runs;
+                               #  crucial to set to 0 if re-running main with different inputs (apart from precision)
+                               #  note: if missing (default) pre runs used if important for precision
+                               #  (separately for each contribution)
+reduce_workload = 0            #  switch to keep full job output (0), reduce (1) or minimize (2) workload on slow clusters
+random_seed = 0                #  specify integer value (grid-/pre-run reproducible)
+
