@@ -1,0 +1,102 @@
+--- CMS_2JET_7TEV/SubProcesses/setscales.f.orig	2020-11-30 09:45:53.669448000 +0100
++++ CMS_2JET_7TEV/SubProcesses/setscales.f	2020-12-09 15:04:10.610477654 +0100
+@@ -527,6 +527,29 @@
+       integer i,j
+       character*80 temp_scale_id
+       common/ctemp_scale_id/temp_scale_id
++
++      integer iPDG_reco(nexternal)
++      double precision ppl(0:3), pplb(0:3), ppv(0:3), xmll
++      double precision p_reco(0:4,nexternal), p_in(0:4,nexternal)
++c     les houches accord stuff to identify particles
++c
++      integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc),
++     &        icolup(2,nexternal,maxflow),niprocs
++      common /c_leshouche_inc/idup,mothup,icolup,niprocs
++c Masses of external particles
++      double precision pmass(nexternal)
++      common/to_mass/pmass
++      double precision pQCD(0:3,nexternal),
++     $       pjet(0:3,nexternal),etajet(nexternal)
++      integer nQCD,jet(nexternal),njet
++      double precision ptjet(nexternal),yjet(nexternal)
++c For boosts
++      double precision ybst_til_tolab,ybst_til_tocm,sqrtshat,shat
++      common/parton_cms_stuff/ybst_til_tolab,ybst_til_tocm,
++     #                        sqrtshat,shat
++      double precision chybst,shybst,chybstmo
++      double precision xd(1:3)
++      data (xd(i),i=1,3)/0,0,1/
+ c
+       tmp=0
+       if(ickkw.eq.-1)then
+@@ -562,16 +587,59 @@
+           tmp=muR_ref_fixed
+           temp_scale_id='fixed scale'
+       elseif(dynamical_scale_choice.eq.10) then
+-ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+-cc      USER-DEFINED SCALE: ENTER YOUR CODE HERE                                 cc
+-cc      to use this code you must set                                            cc
+-cc                 dynamical_scale_choice = 10                                   cc
+-cc      in the run_card (run_card.dat)                                           cc
+-ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+-         write(*,*) "User-defined scale not set"
+-         stop 1
+-         temp_scale_id='User-defined dynamical scale' ! use a meaningful string
+-         tmp = 0d0
++          temp_scale_id='Mjj'
++
++          do i=1,nexternal
++            p_in(0:3,i) = pp(0:3,i)
++            p_in(4,i) = pmass(i)
++          enddo
++          call recombine_momenta(rphreco, etaphreco, lepphreco, quarkphreco,
++     $                           p_in, idup(1,1), p_reco, iPDG_reco)
++
++          nQCD=0
++          chybst=cosh(ybst_til_tolab)
++          shybst=sinh(ybst_til_tolab)
++          chybstmo=chybst-1.d0
++          do j=nincoming+1,nexternal
++             if (abs(ipdg_reco(j)).le.5 .or. ipdg_reco(j).eq.21 .or.
++     $                                  ipdg_reco(j).eq.22) then
++                nQCD=nQCD+1
++                call boostwdir2(chybst,shybst,chybstmo,xd,
++     $                          p_reco(0,j),pQCD(0,nQCD))
++             endif
++          enddo
++
++          do i=1,nexternal
++             do j=0,3
++                pjet(j,i)=0d0
++             enddo
++             jet(i)=0
++          enddo
++
++c         recombine momenta
++          call amcatnlo_fastjetppgenkt_etamax(pQCD,nQCD,jetradius,ptj,
++     $         etaj,jetalgo,pjet,njet,jet)
++
++          do i=1,njet
++            ptjet(i)=sqrt(pjet(1,i)**2+pjet(2,i)**2)
++            if(i.gt.1)then
++              if (ptjet(i).gt.ptjet(i-1)) then
++                write (*,*) "Error 3: jets should be ordered in pt"
++                write (*,*) ptjet(i), ptjet(i-1), i
++                stop
++              endif
++            endif
++          enddo
++
++         if (njet .lt. 2) then
++c          something is wrong with the cuts - they should check for two jets
++           tmp=4d0
++           write (*,*) "Error 4: scale couldn't find two jets"
++         else
++           tmp=sqrt((pjet(0,1)+pjet(0,2))**2-(pjet(1,1)+pjet(1,2))**2
++     $                                      -(pjet(2,1)+pjet(2,2))**2
++     $                                      -(pjet(3,1)+pjet(3,2))**2)
++         endif
+ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+ cc      USER-DEFINED SCALE: END OF USER CODE                                     cc
+ ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc

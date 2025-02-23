@@ -1,0 +1,7 @@
+set complex_mass_scheme True
+import model loop_qcd_qed_sm_Gmu-with_b_mass
+define j = p b b~
+# TODO: include NLO EW corrections
+generate p p > b b~ [QCD]
+output @OUTPUT@
+quit

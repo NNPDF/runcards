@@ -1,0 +1,28 @@
+launch @OUTPUT@
+fixed_order = ON
+set maxjetflavor 4
+set gf @GF@
+set mh @MH@
+set mt @MT@
+set mw @MW@
+set mz @MZ@
+set wh @WH@
+set wt @WT@
+set ww @WW@
+set wz @WZ@
+set ebeam1 7000
+set ebeam2 7000
+set pdlabel lhapdf
+set lhaid 324900
+set dynamical_scale_choice 10
+set reweight_scale True
+set jetalgo = 1.0
+set jetradius = 0.4
+set ptj = 50.0
+set maxjetflavor = 5
+# `change_etaj_to_rapj.patch` changes the following to rapidity instead of pseudo-rapidity
+set etaj = 4.5
+set req_acc_FO 0.01
+set pineappl True
+done
+quit

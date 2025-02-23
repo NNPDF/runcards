@@ -1,0 +1,7 @@
+description=cross section at 14 TeV
+x1_label=
+x1_label_tex=$$
+x1_unit=GeV
+y_label=dsig/d
+y_label_tex=$\mathrm{d}\sigma/\mathrm{d} $
+y_unit=pb

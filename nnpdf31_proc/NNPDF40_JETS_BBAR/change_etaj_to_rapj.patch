@@ -1,0 +1,48 @@
+--- NLO/SubProcesses/fastjetfortran_madfks_core.cc.orig	2020-11-27 18:11:04.027146365 +0100
++++ NLO/SubProcesses/fastjetfortran_madfks_core.cc	2020-11-27 18:13:47.285826142 +0100
+@@ -76,7 +76,7 @@
+   /// and the extraction of the jets
+   void amcatnlo_transfer_cluster_transfer(const double * p, const int & npart, 
+                                  const JetDefinition & jet_def,
+-                                 const double & ptmin, const double & etamax,
++                                 const double & ptmin, const double & rapmax,
+ 				 double * f77jets, int & njets, int * whichjet) {
+ 
+     // transfer p[4*ipart+0..3] -> input_particles[i]
+@@ -90,9 +90,9 @@
+     jets = sorted_by_pt(cs->inclusive_jets(ptmin));
+ 
+     //apply the eta selector if etamax >0
+-    Selector select_eta = SelectorAbsEtaMax(etamax);
+-    if (etamax > 0.) {
+-        jets = select_eta(jets);
++    Selector select_rap = SelectorAbsRapMax(rapmax);
++    if (rapmax > 0.) {
++        jets = select_rap(jets);
+     }
+ 
+     // transfer jets -> f77jets[4*ijet+0..3]
+--- NLO/SubProcesses/fastjetfortran_madfks_full.cc.orig	2020-11-27 18:11:12.687075955 +0100
++++ NLO/SubProcesses/fastjetfortran_madfks_full.cc	2020-11-27 18:13:47.289826110 +0100
+@@ -79,7 +79,7 @@
+   /// and the extraction of the jets
+   void amcatnlo_transfer_cluster_transfer(const double * p, const int & npart, 
+                                  const JetDefinition & jet_def,
+-                                 const double & ptmin, const double & etamax,
++                                 const double & ptmin, const double & rapmax,
+ 				 double * f77jets, int & njets, int * whichjet,
+ 				 const double & ghost_maxrap = 0.0,  
+ 				 const int & nrepeat = 0, const double & ghost_area = 0.0) {
+@@ -101,9 +101,9 @@
+     jets = sorted_by_pt(cs->inclusive_jets(ptmin));
+ 
+     //apply the eta selector if etamax >0
+-    Selector select_eta = SelectorAbsEtaMax(etamax);
+-    if (etamax > 0.) {
+-        jets = select_eta(jets);
++    Selector select_rap = SelectorAbsRapMax(rapmax);
++    if (rapmax > 0.) {
++        jets = select_rap(jets);
+     }
+ 
+     // transfer jets -> f77jets[4*ijet+0..3]
