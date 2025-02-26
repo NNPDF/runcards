@@ -1,0 +1,15 @@
+arxiv=
+description=DIS positivity for light longitudinal structure function
+hepdata=
+data_url=
+nnpdf_id=POSFLL
+fktable_id=POSFLL
+x1_label=Q2
+x1_label_tex=$Q^2$
+x1_unit=GeV^2
+x2_label=x
+x2_label_tex=$x$
+x2_unit=
+y_label=FL_light
+y_label_tex=$F_L^{light}$
+y_unit=
